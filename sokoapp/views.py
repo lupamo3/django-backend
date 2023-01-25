@@ -33,5 +33,9 @@ class EmployeeViewSet(viewsets.ViewSet):
             employee_data['identifier'] = f"{employee.first_name}{employee.last_name}{employee.date_of_birth}"
         return Response(employee_data)
 
+class CountryViewSet(viewsets.ModelViewSet):
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
+
 
 
