@@ -43,12 +43,12 @@ class Artisan(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     date_of_birth = models.DateField()
-    holiday_allowance = models.IntegerField()
-    marital_status = models.CharField(max_length=20, choices=(('Single', 'Single'), ('Married', 'Married')), default='S')
-    id_number = models.IntegerField()
-    working_hours = models.IntegerField()
-    number_of_children = models.IntegerField(default=0)
-    religion = models.CharField(max_length=20, choices=(('Christian', 'Christian'), ('Muslim', 'Muslim')), default='C')
+    holiday_allowance = models.IntegerField(default=0, blank=True)
+    marital_status = models.CharField(max_length=20, choices=(('Single', 'Single'), ('Married', 'Married')), default='S', blank=True)
+    id_number = models.IntegerField(default=0, blank=True)
+    working_hours = models.IntegerField(default=0, blank=True)
+    number_of_children = models.IntegerField(default=0, blank=True)
+    religion = models.CharField(max_length=20, choices=(('Christian', 'Christian'), ('Muslim', 'Muslim')), default='C', blank=True)
 
     def __str__(self):
         return self.first_name + " " + self.last_name

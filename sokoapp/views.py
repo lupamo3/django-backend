@@ -112,6 +112,7 @@ class ArtisanViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create(self, request):
+        print("request", request.data)
         serializer = self.artisan_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
