@@ -105,10 +105,11 @@ class EmployeeViewSet(viewsets.ViewSet):
 
 class ArtisanViewSet(viewsets.ViewSet):
     artisan_serializer = ArtisanSerializer
+    queryset = Artisan.objects.all()
+
 
     def get(self, request):
-        queryset = Artisan.objects.all()
-        serializer = self.artisan_serializer(queryset, many=True)
+        serializer = self.artisan_serializer(self.queryset, many=True)
         return Response(serializer.data)
 
     def create(self, request):
