@@ -20,19 +20,19 @@ class ArtisanAPITestCase(APITestCase):
         self.artisan = Artisan.objects.create(**self.artisan_data)
     
     def test_create_artisan(self):
-        url = reverse('artisan')
+        url = '/http://127.0.0.1:8000/artisans/'
         data = {
-            'first_name': 'John',
-            'last_name': 'Doe',
-            'date_of_birth': '1980-01-01',
-            'country': 'kenya',
-            'holiday_allowance': 21,
-            'marital_status': 'Single',
-            'id_number': 29663036,
-            'working_hours': 0,
-            'number_of_children': 0,
-            'religion': 'Christian'
-        }
+            "first_name": "Norbert", 
+            "last_name": "Anjichi", 
+            "date_of_birth": "2023-01-27", 
+            "country": "kenya", 
+            "holiday_allowance": 12, 
+            "id_number": "29663036", 
+            "working_hours": 0, 
+            "religion": "", 
+            "marital_status": "Married", 
+            "number_of_children": 0
+            }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Artisan.objects.count(), 2)
