@@ -12,6 +12,7 @@ python manage.py makemigrations
 python manage.py migrate
 Run the development server:
 python manage.py runserver
+python manage.py tests
 ```
 
 ### Usage
@@ -34,6 +35,11 @@ The application includes views that handle the logic for retrieving the employee
 The EmployeeViewSet retrieves the employee data from the Employee model, then uses the country code to retrieve the country's details from the Rest Countries API, and then adds the country specific information to the employee object and returns it as a response.
 
 The CountryViewSet retrieves the countries data from the Country model and returns it as a response.
+```
+
+### Tests
+```
+This tests verify that the API endpoint for creating and updating employees, artisans and countries is working correctly, and that the API endpoints for listing employees, artisans and countries is returning the correct response.
 ```
 
 ### Assumptions
