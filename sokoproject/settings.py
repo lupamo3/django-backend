@@ -37,7 +37,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/django/djangosoko/django.log',
+            'filename': './django.log',
         },
     },
     'loggers': {
@@ -46,7 +46,6 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-        ,
         'django_rest_framework': {
             'handlers': ['file'],
             'level': 'DEBUG',
