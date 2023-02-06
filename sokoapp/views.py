@@ -15,6 +15,7 @@ logger = logging.getLogger("django_rest_framework")
 
 country_info_cache = {}
 
+
 def get_country_details(country_code):
     if country_code in country_info_cache:
         return country_info_cache[country_code]
@@ -47,7 +48,6 @@ class EmployeeViewSet(viewsets.ViewSet):
             region = country_info.get("region", None)
             date_of_birth = request.data["date_of_birth"]
             date_of_birth = date_of_birth.replace("-", "")
-            print("should be here", date_of_birth)
             if region in ["Middle East", "Africa"]:
                 identifier = f"{request.data['first_name']}{request.data['last_name']}{date_of_birth}"
 
@@ -69,7 +69,8 @@ class EmployeeViewSet(viewsets.ViewSet):
                     "country_currency": currency_code,
                     "country_language": languages,
                     "country_timezone": timezones,
-                    "region": identifier,
+                    "employee_identifier": identifier,
+                    "region": region,
                 }
             )
             serializer.is_valid(raise_exception=True)
@@ -82,9 +83,6 @@ class EmployeeViewSet(viewsets.ViewSet):
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     def list(self, request):
-        # with open("/Users/lj22/Code/python/django/djangosoko/sokoapp/employee.json", "r") as f:
-        #     json_data = json.load(f)
-        # return Response(json_data)
         try:
             queryset = Employee.objects.all()
             serializer = self.serializer_class(queryset, many=True)
@@ -104,30 +102,31 @@ class EmployeeViewSet(viewsets.ViewSet):
             logger.error(e)
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-class ExistingEmployeesViewSet(viewsets.ViewSet):
 
+class ExistingEmployeesViewSet(viewsets.ViewSet):
     def list(self, request):
         try:
-            with open("/Users/lj22/Code/python/django/djangosoko/sokoapp/employee.json", "r") as f:
+            with open(
+                "/Users/lj22/Code/python/django/djangosoko/sokoapp/employee.json", "r"
+            ) as f:
                 json_data = json.load(f)
             employee_data = []
             for person in json_data:
-                first_name = person['firstName']
-                last_name = person['lastName']
-                dob = person['dateOfBirth']
-                job_title = person['jobTitle']
-                company = person['company']
-                country = person['country']
+                first_name = person["firstName"]
+                last_name = person["lastName"]
+                dob = person["dateOfBirth"]
+                job_title = person["jobTitle"]
+                company = person["company"]
+                country = person["country"]
                 response = get_country_details(country)
                 country_info = response[0]
                 region = country_info.get("region", None)
-                
+
                 date_of_birth = dob.replace("/", "")
                 if region in ["Middle East", "Africa"]:
                     identifier = f"{first_name}{last_name}{date_of_birth}"
                 else:
                     identifier = region
-
 
                 currency = country_info["currencies"]
                 currency_list = list(currency.values())[0]
@@ -140,12 +139,23 @@ class ExistingEmployeesViewSet(viewsets.ViewSet):
                 timezones = country_info["timezones"]
                 timezones = "".join(timezones)
 
-                employee_data.append({'first_name': first_name, 'last_name': last_name, 'dob': date_of_birth,
-                        'job_title': job_title, 'company': company, 'country': country, 'country_name': country_name, 
-                        'country_currency': currency_code,
-                        'country_language': languages, 'country_timezone': timezones, 'employee_identifier': identifier})
+                employee_data.append(
+                    {
+                        "first_name": first_name,
+                        "last_name": last_name,
+                        "dob": date_of_birth,
+                        "job_title": job_title,
+                        "company": company,
+                        "country": country,
+                        "country_name": country_name,
+                        "country_currency": currency_code,
+                        "country_language": languages,
+                        "country_timezone": timezones,
+                        "employee_identifier": identifier,
+                    }
+                )
             logger.info(status.HTTP_200_OK)
-            return Response(employee_data)
+            return Response(employee_data, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(e)
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

@@ -5,7 +5,9 @@ from .views import EmployeeViewSet, ArtisanViewSet, ExistingEmployeesViewSet
 
 router = routers.DefaultRouter()
 router.register(r"employees", EmployeeViewSet, basename="employee")
-router.register(r"existing-employees", ExistingEmployeesViewSet, basename="existing-employee")
+router.register(
+    r"existing-employees", ExistingEmployeesViewSet, basename="existing-employee"
+)
 router.register(r"artisans", ArtisanViewSet, basename="artisan")
 
 
