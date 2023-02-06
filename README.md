@@ -48,6 +48,18 @@ The CountryViewSet retrieves the countries data from the Country model and retur
 ```
 This tests verify that the API endpoint for creating and updating employees, artisans and countries is working correctly, and that the API endpoints for listing employees, artisans and countries is returning the correct response.
 ```
+### CI/CD
+```
+Github Actions Continuous Integration and Development has been set up in the application. 
+```
+### Black
+```
+Used black for code formatting. 
+```
+### Pagination
+```
+Pagination implemented using PageNumberPagination
+```
 
 ### Assumptions
 

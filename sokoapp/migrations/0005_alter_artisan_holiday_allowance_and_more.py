@@ -4,40 +4,49 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('sokoapp', '0004_alter_artisan_holiday_allowance_and_more'),
+        ("sokoapp", "0004_alter_artisan_holiday_allowance_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='artisan',
-            name='holiday_allowance',
+            model_name="artisan",
+            name="holiday_allowance",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='artisan',
-            name='id_number',
+            model_name="artisan",
+            name="id_number",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='artisan',
-            name='marital_status',
-            field=models.CharField(blank=True, choices=[('Single', 'Single'), ('Married', 'Married')], default='S', max_length=20),
+            model_name="artisan",
+            name="marital_status",
+            field=models.CharField(
+                blank=True,
+                choices=[("Single", "Single"), ("Married", "Married")],
+                default="S",
+                max_length=20,
+            ),
         ),
         migrations.AlterField(
-            model_name='artisan',
-            name='number_of_children',
+            model_name="artisan",
+            name="number_of_children",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='artisan',
-            name='religion',
-            field=models.CharField(blank=True, choices=[('Christian', 'Christian'), ('Muslim', 'Muslim')], default='C', max_length=20),
+            model_name="artisan",
+            name="religion",
+            field=models.CharField(
+                blank=True,
+                choices=[("Christian", "Christian"), ("Muslim", "Muslim")],
+                default="C",
+                max_length=20,
+            ),
         ),
         migrations.AlterField(
-            model_name='artisan',
-            name='working_hours',
+            model_name="artisan",
+            name="working_hours",
             field=models.IntegerField(blank=True, default=0),
         ),
     ]
